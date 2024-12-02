@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Inicio de Sesión y Registro</title>
+  <link rel="shortcut icon" href="/miniatura.png" type="image/x-icon">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #e0f7fa; /* Color azul agua */
+}
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 700px;
+  background: #ffffff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 40px;
+  overflow: hidden;
+}
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+.wrapper.active .form-wrapper.sign-in {
+  transform: translateY(-100%);
+}
+.wrapper .form-wrapper.sign-up {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+.wrapper.active .form-wrapper.sign-up {
+  transform: translateY(-100%);
+}
+h2 {
+  font-size: 28px;
+  color: #00796b; /* Color verde oscuro */
+  text-align: center;
+  margin-bottom: 20px;
+}
+.input-group {
+  position: relative;
+  margin: 20px 0;
+}
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-size: 14px;
+  color: #aaa;
+  transition: .5s;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.input-group input:focus {
+  border-color: #00796b; /* Color verde oscuro */
+}
+.input-group input:focus~label,
+.input-group input:valid~label {
+  top: -10px;
+  font-size: 12px;
+  color: #00796b; /* Color verde oscuro */
+}
+.remember {
+  margin: 10px 0;
+}
+.remember label {
+  color: #666;
+  font-size: 14px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: #00796b; /* Color verde oscuro */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+button:hover {
+  background: #004d40; /* Color verde más oscuro */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.signUp-link {
+  font-size: 14px;
+  text-align: center;
+  margin: 15px 0;
+}
+.signUp-link p {
+  color: #666;
+}
+.signUp-link p a {
+  color: #00796b; /* Color verde oscuro */
+  text-decoration: none;
+  font-weight: 500;
+}
+.signUp-link p a:hover {
+  text-decoration: underline;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Formulario de inicio de sesión -->
+    <div class="form-wrapper sign-in">
+      <form id="loginForm" action="/iniciarsesion" method="post">
+        <h2>Iniciar sesión</h2>
+        <div class="input-group">
+          <input type="email" id="loginEmail" name="email" required>
+          <label for="loginEmail">Correo electrónico</label>
+          <div class="error-message" id="loginEmailError"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" id="loginPassword" name="password" required>
+          <label for="loginPassword">Contraseña</label>
+          <div class="error-message" id="loginPasswordError"></div>
+        </div>
+        <div class="remember">
+          <label><input type="checkbox"> Recuérdame</label>
+        </div>
+        <button type="submit">Iniciar sesión</button>
+        
+        <div class="signUp-link">
+          <p>No tienes una cuenta? <a href="#" class="signUpBtn-link">Regístrate</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Formulario de registro -->
+    <div class="form-wrapper sign-up">
+      <form id="registerForm" action="/register" method="post">
+        <h2>Registrarse</h2>
+        <div class="input-group">
+          <input type="text" id="registerName" name="nombre" required>
+          <label for="registerName">Nombre</label>
+          <div class="error-message" id="registerNameError"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" id="registerApellidoPaterno" name="apellido_paterno" required>
+          <label for="registerApellidoPaterno">Apellido Paterno</label>
+          <div class="error-message" id="registerApellidoPaternoError"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" id="registerApellidoMaterno" name="apellido_materno" required>
+          <label for="registerApellidoMaterno">Apellido Materno</label>
+          <div class="error-message" id="registerApellidoMaternoError"></div>
+        </div>
+        <div class="input-group">
+          <input type="email" id="registerEmail" name="email" required>
+          <label for="registerEmail">Correo electrónico</label>
+          <div class="error-message" id="registerEmailError"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" id="registerPassword" name="password" required>
+          <label for="registerPassword">Contraseña</label>
+          <div class="error-message" id="registerPasswordError"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" id="registerDireccion" name="direccion" required>
+          <label for="registerDireccion">Dirección</label>
+          <div class="error-message" id="registerDireccionError"></div>
+        </div>
+        <div class="remember">
+          <label><input type="checkbox" id="terms" required> Acepto los términos y condiciones</label>
+          <div class="error-message" id="termsError"></div>
+        </div>
+        <button type="submit">Regístrate</button>
+        <div class="signUp-link">
+          <p>Ya tienes una cuenta? <a href="#" class="signInBtn-link">Inicia sesión</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+
+  <script>
+    // Script para cambiar entre formularios
+    const signUpBtn = document.querySelector('.signUpBtn-link');
+    const signInBtn = document.querySelector('.signInBtn-link');
+    const wrapper = document.querySelector('.wrapper');
+
+    signUpBtn.addEventListener('click', () => {
+      wrapper.classList.add('active');
+    });
+
+    signInBtn.addEventListener('click', () => {
+      wrapper.classList.remove('active');
+    });
+
+    
+  </script>
+</body>
+</html>

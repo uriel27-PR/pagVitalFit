@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - VitalFit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .checkout-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .checkout-logo {
+            max-width: 150px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        h2 {
+            color: #00c4b4;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #000000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        input, button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background-color: #00c4b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00a396;
+        }
+        #change-message {
+            text-align: center;
+            font-weight: bold;
+        }
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .input-wrapper::before {
+            content: '$';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        #payment-input {
+            padding-left: 25px;
+            width: calc(100% - 30px);
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-content">
+        <img src="img/logoVitalfit.webp" alt="VitalFit Logo" class="checkout-logo">
+        <h2>Compra Segura</h2>
+        <p>Total del Carrito: <span id="cart-total"></span></p>
+        <div class="input-wrapper">
+            <input type="number" id="payment-input" placeholder="Ingrese el monto a pagar" step="0.01">
+        </div>
+        <button id="confirm-payment">Confirmar Pago</button>
+        <p id="change-message"></p>
+    </div>
+
+    <script>
+        // Obtener el total del carrito desde localStorage o sessionStorage
+        const cartTotal = localStorage.getItem('cartTotal') || '0.00';
+        document.getElementById('cart-total').textContent = `$${cartTotal}`;
+
+        document.getElementById('confirm-payment').addEventListener('click', function() {
+            const total = parseFloat(cartTotal);
+            const payment = parseFloat(document.getElementById('payment-input').value);
+            if (payment >= total) {
+                const change = payment - total;
+                document.getElementById('change-message').textContent = `Gracias por tu compra. Tu cambio es de: $${change.toFixed(2)}`;
+                document.getElementById('change-message').style.color = '#000000';
+                
+                // Aquí puedes agregar código para limpiar el carrito si es necesario
+                localStorage.removeItem('cartTotal'); // Elimina el total del carrito (opcional)
+
+                // Redirigir a la página principal después de 3 segundos
+                setTimeout(() => {
+                    window.location.href = '/'; // Cambia esto a la URL de tu página principal
+                }, 3000);
+            } else {
+                document.getElementById('change-message').textContent = 'El monto ingresado es insuficiente.';
+                document.getElementById('change-message').style.color = 'red';
+            }
+        });
+
+        document.getElementById('payment-input').addEventListener('blur', function(e) {
+            let value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>

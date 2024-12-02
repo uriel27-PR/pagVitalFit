@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones de Cuenta</title>
+    <style>
+        /* Estilo general */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #e0f7fa; /* Fondo azul agua */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            color: #00796b; /* Color del título */
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        a, button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            background-color: #00acc1; /* Azul claro */
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            transition: 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        a:hover, button:hover {
+            background-color: #00796b; /* Azul más oscuro al hacer hover */
+            box-shadow: 0 6px 15px rgba(0, 121, 107, 0.2);
+        }
+
+        button {
+            background-color: #ff5252; /* Rojo para el botón de eliminar */
+        }
+
+        button:hover {
+            background-color: #d32f2f; /* Rojo oscuro en hover */
+        }
+
+        form {
+            display: inline;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="account-options">
+        <h1>Opciones de Cuenta</h1>
+        <ul>
+            <li><a href="/principal">Ver perfil</a></li>
+            <li><a href="/actualizarcuenta">Actualizar datos</a></li>
+            <li>
+                <form action="/eliminar" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?');">
+                    <button type="submit">Eliminar cuenta</button>
+                </form>
+            </li>
+            <li><a href="/principal">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</body>
+</html>
